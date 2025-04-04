@@ -1,8 +1,27 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+    reactStrictMode: true,
+    webpack: (config, {isServer}) => {
+        config.resolve ??= {};
+        config.resolve.fallback ??= {};
+
+        config.resolve.fallback = {
+            ...config.resolve.fallback,
+            module: false,
+            dgram: false,
+            dns: false,
+            fs: false,
+            http2: false,
+            net: false,
+            tls: false,
+            child_process: false,
+            'webpack/lib/javascript/BasicEvaluatedExpression': require.resolve('webpack/lib/javascript/BasicEvaluatedExpression')
+        };
+
+        return config;
+    },
+    swcMinify: true
 };
 
 export default nextConfig;

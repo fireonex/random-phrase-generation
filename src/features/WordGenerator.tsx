@@ -30,7 +30,7 @@ export const WordGenerator = () => {
             params.set('number', Math.min(wordCount, 10).toString());
             if (selectedLanguage) params.set('lang', selectedLanguage);
 
-            const response = await fetch(`/api/words?${params.toString()}`);
+            const response = await fetch(`https://random-word-api.herokuapp.com/word?${params.toString()}`);
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
